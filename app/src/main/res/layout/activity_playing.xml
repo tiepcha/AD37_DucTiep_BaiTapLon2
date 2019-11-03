@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:id="@+id/rlplay">
+
+
+
+    <VideoView android:id="@+id/vv"
+
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/sb"
+        android:layout_centerInParent="true"
+        android:thumbTint="@android:color/transparent"
+        android:progressTint="@android:color/transparent"
+        android:backgroundTint="@android:color/transparent"
+        android:progressBackgroundTint="@android:color/transparent"
+
+        android:layout_toLeftOf="@+id/sb_volume"
+        android:layout_above="@id/rl_mcontroler"
+        android:max="100"
+        android:clickable="true"
+
+        />
+
+    <com.example.myapplication.VerticalSeekBar
+        android:id="@+id/sb_volume"
+        android:layout_width="80dp"
+        android:layout_height="300dp"
+        android:background="@android:color/holo_green_light"
+        android:clickable="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:progressTint="@android:color/transparent"
+        android:thumbTint="@android:color/transparent"
+        android:backgroundTint="@android:color/transparent"
+        android:progressBackgroundTint="@android:color/transparent"
+        android:max="100"
+
+
+
+        />
+
+
+
+
+<!--    <SeekBar-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:id="@+id/sb_volume"-->
+<!--        android:background="@color/orange_light"-->
+<!--        android:layout_above="@id/rl_mcontroler"-->
+
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:rotation="270"-->
+<!--        android:max="100"-->
+
+<!--        />-->
+<!--    <SeekBar-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:id="@+id/sb_brightness"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:thumbTint="@android:color/transparent"-->
+<!--        android:progressTint="@android:color/transparent"-->
+<!--        android:backgroundTint="@android:color/transparent"-->
+<!--        android:progressBackgroundTint="@android:color/transparent"-->
+<!--        android:layout_above="@id/rl_mcontroler"-->
+
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:max="100"-->
+<!--        android:clickable="true"-->
+<!--        />-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvrewind_forward"
+        android:layout_centerInParent="true"
+        android:textColor="@color/orange_light"
+        android:textSize="30dp"
+        android:textStyle="italic"
+        />
+
+
+    <RelativeLayout
+        android:id="@+id/rl_mcontroler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/mcontrolerbackground"
+        android:paddingHorizontal="10dp">
+        <!--        android:visibility="gone"-->
+        >
+
+        <ImageView
+            android:id="@+id/imgpause"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/pb"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="5dp"
+            android:layout_toRightOf="@id/imgrewind"
+            android:background="@drawable/button_pause" />
+
+        <ImageView
+            android:id="@+id/imgrewind"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/pb"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="5dp"
+            android:layout_toRightOf="@id/imgprev"
+            android:background="@drawable/button_backward" />
+
+        <ImageView
+            android:id="@+id/imgforward"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/pb"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="5dp"
+            android:layout_toRightOf="@id/imgpause"
+            android:background="@drawable/button_forward" />
+
+        <ImageView
+            android:id="@+id/imgnext"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/pb"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="5dp"
+            android:layout_toRightOf="@id/imgforward"
+            android:background="@drawable/button_next" />
+
+        <ImageView
+            android:id="@+id/imgprev"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/pb"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="5dp"
+            android:background="@drawable/button_prev" />
+
+        <ImageView
+            android:id="@+id/imgmute"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignBottom="@id/imgnext"
+            android:layout_marginVertical="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/imgnext"
+            android:background="@drawable/unmute" />
+
+        <SeekBar
+            android:id="@+id/pb"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@id/tvtime_total"
+            android:layout_toRightOf="@id/tvtimecr"
+            android:clickable="true"
+            android:foregroundGravity="bottom"
+            android:max="100"
+            android:progressTint="@color/orange_light"
+            android:text="sdf"
+            android:thumbTint="@color/orange_light" />
+
+        <SeekBar
+            android:id="@+id/sb_volume_controlerbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/imgmute"
+            android:layout_marginBottom="12dp"
+            android:layout_toRightOf="@id/imgmute"
+            android:clickable="true"
+            android:max="100"
+            android:progressTint="@color/orange_light"
+            android:text="sdf"
+            android:thumbTint="@color/orange_light" />
+
+        <TextView
+            android:id="@+id/tvtimecr"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="00:00"
+            android:textColor="@color/orange_light" />
+
+        <TextView
+            android:id="@+id/tvtime_total"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_below="@id/pb"
+            android:layout_alignTop="@id/tvtimecr"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:text="00:00"
+            android:textColor="@color/orange_light" />
+
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>
+</layout>
