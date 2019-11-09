@@ -10,15 +10,19 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.example.myapplication.Fragment.VideoCategoryAdapter;
 import com.example.myapplication.Fragment.VideoCategoryItem;
 import com.example.myapplication.Fragment.VideoHot;
+import com.example.myapplication.data.Main2Activity;
 import com.google.android.material.tabs.TabLayout;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +39,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity  {
 
 
+
     String getCategory = "https://demo5639557.mockable.io/getCategory";
 
     String getItemCategory = "https://demo5639557.mockable.io/getItemCategory";
@@ -45,6 +50,7 @@ public class MainActivity extends AppCompatActivity  {
     FlowingDrawer mDrawer;
     static String result="";
 
+    TextView tv;
 
 
     @Override
@@ -53,6 +59,15 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
+        tv = findViewById(R.id.tv);
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), Main2Activity.class);
+                startActivity(intent);
+            }
+        });
 
         new getDataCategory(getCategory).execute();
 
@@ -116,7 +131,7 @@ public class MainActivity extends AppCompatActivity  {
             super.onPostExecute(aVoid);
             getCategory(result);
             ViewPager viewPager = findViewById(R.id.view_pager);
-            viewPager.setOffscreenPageLimit(8);
+            viewPager.setOffscreenPageLimit(4);
             viewPager.setPageTransformer(true, new DepthPageTransformer());
             PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
 
@@ -127,7 +142,10 @@ public class MainActivity extends AppCompatActivity  {
             for ( int i = 0 ; i<categoryList.size();i++){
 //                VideoCategoryItem videoCategoryItem = new VideoCategoryItem();
 //                pagerAdapter.add(videoCategoryItem ,categoryList.get(i).getCategory());
-                pagerAdapter.add(VideoCategoryItem.newInstance() ,categoryList.get(i).getCategory());
+//                pagerAdapter.add(VideoCategoryItem.newInstance() ,categoryList.get(i).getCategory());
+                pagerAdapter.add(new VideoCategoryItem(categoryList.get(i)) ,categoryList.get(i).getCategory());
+
+
 
             }
 

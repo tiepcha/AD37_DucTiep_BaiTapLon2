@@ -5,6 +5,6 @@ import android.view.View;
 
 public interface IonClickItem {
 
-    void onClickName(String name,int position, View v);
+    void onClickName(String name,int video_position ,int position, View v);
     void onClickAva(int position);
 }

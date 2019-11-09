@@ -48,7 +48,6 @@ public class VideoHot extends Fragment implements Serializable{
     VideoHotAdapter videoHotAdapter;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-
     IonClickItem ionClickItem;
 
     public VideoHot() {
@@ -124,20 +123,25 @@ public class VideoHot extends Fragment implements Serializable{
             videoHotAdapter = new VideoHotAdapter(listHotVideo,getContext());
             videoHotAdapter.setIonClickItem(new IonClickItem() {
                 @Override
-                public void onClickName(String name, int position, View v) {
+                public void onClickName(String name, int video_position, int position, View v) {
                     Intent intent = new Intent(v.getContext(), Playing.class);
                     intent.putExtra("mp4", name);
                     intent.putExtra("list", (Serializable) listHotVideo);
                     intent.putExtra("position",position);
+                    intent.putExtra("video_position",video_position);
+
                     startActivity(intent);
                 }
 
                 @Override
                 public void onClickAva(int position) {
+//                    binding.rcv.scrollToPosition(position);
                 }
             });
+
             binding.rcv.setLayoutManager(layoutManager);
             binding.rcv.setAdapter(videoHotAdapter);
+
 //            binding.rcv.setRecyclerListener(new RecyclerView.RecyclerListener() {
 //                @Override
 //                public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
@@ -163,7 +167,7 @@ public class VideoHot extends Fragment implements Serializable{
                 VideoItem videoItem = new VideoItem();
 
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                videoItem.setId(jsonObject.getString("id"));
+                videoItem.setId(jsonObject.getInt("id"));
                 videoItem.setTitle(jsonObject.getString("title"));
                 videoItem.setAvatar(jsonObject.getString("avatar"));
                 videoItem.setFile_mp4( jsonObject.getString("file_mp4"));
@@ -173,7 +177,10 @@ public class VideoHot extends Fragment implements Serializable{
                 videoItem.setDate_published( jsonObject.getString("date_published"));
                 videoItem.setYoutube_url( jsonObject.getString("youtube_url"));
                 videoItem.setStatus(jsonObject.getString("status"));
-                videoItem.setLike(false);
+                videoItem.setLike(0);
+                videoItem.setRecent("null");
+                videoItem.setRate(3);
+
                 listHotVideo.add(videoItem);
 
             }
@@ -183,5 +190,6 @@ public class VideoHot extends Fragment implements Serializable{
         }
 
     }
+
 
 }

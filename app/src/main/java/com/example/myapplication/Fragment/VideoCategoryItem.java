@@ -4,13 +4,16 @@ package com.example.myapplication.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.myapplication.Category;
@@ -67,9 +70,9 @@ public class VideoCategoryItem extends Fragment implements Serializable{
         return fragment;
     }
 
-//    public VideoCategoryItem(Category category) {
-//        this.category = category;
-//    }
+    public VideoCategoryItem(Category category) {
+        this.category = category;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,18 +80,20 @@ public class VideoCategoryItem extends Fragment implements Serializable{
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_video_category, container, false);
 
 
-//        Toast.makeText(getContext(), category.getThumb(), Toast.LENGTH_SHORT).show();
-//
-//        String a = category.getThumb();
-
         new getCtgrData(getCategory).execute();
 
         new getData(urlApi).execute();
 
+        new DownloadImage(binding.imgcategory).execute(category.getThumb());
+
+//            Picasso.get().load(categoryList.get(3).getThumb()).into(binding.imgcategory);
+
+
+
         binding.imgcategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(getContext(), category.getThumb(), Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -130,7 +135,6 @@ public class VideoCategoryItem extends Fragment implements Serializable{
             super.onPostExecute(aVoid);
 //            Toast.makeText(getContext(), result0, Toast.LENGTH_SHORT).show();
             getCategoryObject(result0);
-//            Picasso.get().load(categoryList.get(3).getThumb()).into(binding.imgcategory);
         }
     }
 
@@ -145,6 +149,7 @@ public class VideoCategoryItem extends Fragment implements Serializable{
         }
         @Override
         protected Void doInBackground(Void... voids) {
+
             try {
                 URL url = new URL(urlApi);
                 URLConnection connection = url.openConnection();
@@ -170,12 +175,15 @@ public class VideoCategoryItem extends Fragment implements Serializable{
             getJsonObj(result);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
             Collections.shuffle(listHotVideo);
+
             videoCategoryAdapter = new VideoCategoryAdapter(listHotVideo,getContext());
             videoCategoryAdapter.setIonClickItem(new IonClickItem() {
                 @Override
-                public void onClickName(String name, int position, View v) {
+                public void onClickName(String name,int video_position, int position, View v) {
                     Intent intent = new Intent(v.getContext(), Playing.class);
                     intent.putExtra("mp4", name);
+                    intent.putExtra("video_position",video_position);
+
                     startActivity(intent);
                 }
 
@@ -186,6 +194,7 @@ public class VideoCategoryItem extends Fragment implements Serializable{
             });
             binding.rcv.setLayoutManager(layoutManager);
             binding.rcv.setAdapter(videoCategoryAdapter);
+
 
 //            int resId = R.anim.layout_animation_fall_down;
 //            LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getContext(), resId);
@@ -203,7 +212,7 @@ public class VideoCategoryItem extends Fragment implements Serializable{
                 VideoItem videoItem = new VideoItem();
 
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                videoItem.setId(jsonObject.getString("id"));
+                videoItem.setId(jsonObject.getInt("id"));
                 videoItem.setTitle(jsonObject.getString("title"));
                 videoItem.setAvatar(jsonObject.getString("avatar"));
                 videoItem.setFile_mp4( jsonObject.getString("file_mp4"));
@@ -213,7 +222,9 @@ public class VideoCategoryItem extends Fragment implements Serializable{
                 videoItem.setDate_published( jsonObject.getString("date_published"));
                 videoItem.setYoutube_url( jsonObject.getString("youtube_url"));
                 videoItem.setStatus(jsonObject.getString("status"));
-                videoItem.setLike(false);
+                videoItem.setLike(0);
+                videoItem.setRecent("null");
+                videoItem.setRate(3);
                 listHotVideo.add(videoItem);
 
             }
@@ -238,10 +249,56 @@ public class VideoCategoryItem extends Fragment implements Serializable{
                 categoryList.add(category);
             }
 
+
+//            binding.imgcategory.setImageBitmap(drawable_from_url(category.getThumb()));1
+
+//            Picasso.get().load(category.getThumb()).resize(1080 , 400).into(binding.imgcategory);
+//            Picasso.get().load(category.getThumb()).resize(1080 , 400).into(binding.imgcategory);
+
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+
     }
+    Bitmap drawable_from_url(String url) throws java.net.MalformedURLException, java.io.IOException {
+
+        HttpURLConnection connection = (HttpURLConnection)new URL(url) .openConnection();
+        connection.setRequestProperty("User-agent","Mozilla/4.0");
+
+        connection.connect();
+        InputStream input = connection.getInputStream();
+
+        return BitmapFactory.decodeStream(input);
+    }
+
+    public class DownloadImage extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImage(ImageView bmImage) {
+            this.bmImage = (ImageView ) bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.d("Error", e.getStackTrace().toString());
+
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+//            Toast.makeText(getContext(), "ok", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 }

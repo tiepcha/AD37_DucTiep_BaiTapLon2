@@ -54,6 +54,7 @@ public class Playing extends AppCompatActivity  {
     AudioManager audioManager;
     List<VideoItem> list;
     int position;
+    int video_position;
     int volume  ;
 
     @Override
@@ -75,6 +76,7 @@ public class Playing extends AppCompatActivity  {
         String a = intent.getStringExtra("mp4");
         list = (List<VideoItem>) intent.getSerializableExtra("list");
           position = intent.getIntExtra("position",0);
+          video_position = intent.getIntExtra("video_position",0);
 
 
         videoView = findViewById( R.id.vv);
@@ -114,6 +116,7 @@ public class Playing extends AppCompatActivity  {
                     sb_volume.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
                     sb_volume.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
                     sb_volume_controlerbar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
+                    updateHandler.postDelayed(mcontrolerhide,2000);
 
 //                    tvrewind_forward.setText(String.valueOf(sb_volume.getMax()));
 
@@ -132,8 +135,10 @@ public class Playing extends AppCompatActivity  {
 
 
 
-
+        videoView.seekTo(video_position);
         videoView.start();
+
+
 //        gestureDetector = new GestureDetector(Playing.this,new MyGestures() );
 //        rlplay.setOnTouchListener(new View.OnTouchListener() {
 //            @Override
@@ -182,10 +187,18 @@ public class Playing extends AppCompatActivity  {
                 if (videoView.isPlaying()) {
                     videoView.pause();
                     img_pause.setBackgroundResource(R.drawable.button_play);
+                    updateHandler.removeCallbacks(mcontrolerhide);
+                    updateHandler.removeCallbacks(sbvolumehide);
+                    updateHandler.postDelayed(mcontrolerhide,3000);
+                    updateHandler.postDelayed(sbvolumehide,300);
                 }
                 else {
                     videoView.start();
                     img_pause.setBackgroundResource(R.drawable.button_pause);
+                    updateHandler.removeCallbacks(mcontrolerhide);
+                    updateHandler.removeCallbacks(sbvolumehide);
+                    updateHandler.postDelayed(mcontrolerhide,3000);
+                    updateHandler.postDelayed(sbvolumehide,300);
                 }
             }
         });
@@ -210,29 +223,29 @@ public class Playing extends AppCompatActivity  {
             }
         });
 
-        sb_volume_controlerbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                volume = sb_volume_controlerbar.getProgress();
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
-                if (volume == 0){
-                    img_mute.setBackgroundResource(R.drawable.mute);
-                } else {
-                    img_mute.setBackgroundResource(R.drawable.unmute);
-                }
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
+//        sb_volume_controlerbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//            @Override
+//            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+//                volume = sb_volume_controlerbar.getProgress();
+//                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
+//                if (volume == 0){
+//                    img_mute.setBackgroundResource(R.drawable.mute);
+//                } else {
+//                    img_mute.setBackgroundResource(R.drawable.unmute);
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onStartTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//
+//            @Override
+//            public void onStopTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//        });
 
 
         img_mute.setOnClickListener(new View.OnClickListener() {
@@ -281,13 +294,14 @@ public class Playing extends AppCompatActivity  {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                updateHandler.removeCallbacks(mcontrolerhide);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 int a = pb.getProgress();
                 videoView.seekTo(a);
+                updateHandler.postDelayed(mcontrolerhide,2000);
 
 
             }
@@ -330,8 +344,8 @@ public class Playing extends AppCompatActivity  {
                 }
 
                 tvrewind_forward.setText("");
-                updateHandler.removeCallbacks(rl_mcontrolerhide);
-                updateHandler.postDelayed(rl_mcontrolerhide,2000);
+                updateHandler.removeCallbacks(mcontrolerhide);
+                updateHandler.postDelayed(mcontrolerhide,2000);
             }});
 
         sb_volume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -402,67 +416,67 @@ public class Playing extends AppCompatActivity  {
     };
 
 
-    class MyGestures extends SimpleOnGestureListener {
-
-
+//    class MyGestures extends SimpleOnGestureListener {
+//
+//
+////        @Override
+////        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+////
+////            tvrewind_forward.setVisibility(View.VISIBLE);
+////
+////            if ( e2.getY() - e1.getY() > 50 ){
+////
+////                a = (int) (e2.getY() - e1.getY())*15/2000;
+////                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)- a, 0);
+////
+////                tvrewind_forward.setText(String.valueOf(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)));
+////
+////            }
+////            if ( e1.getY() - e2.getY() > 50  ){
+////
+////                a = (int) (e1.getY() - e2.getY())*15/2000;
+////                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)+ a, 0);
+//////                videoView.seekTo(videoView.getCurrentPosition()-a);
+////              tvrewind_forward.setText(String.valueOf(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)));
+////
+////
+////            }
+////
+////
+////            rl_mcontroler.removeCallbacks(rl_mcontrolerhide);
+////
+////            rl_mcontroler.postDelayed(rl_mcontrolerhide,2000);
+////
+////
+////
+////            return super.onFling(e1, e2, velocityX, velocityY);
+////        }
+//
 //        @Override
-//        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+//        public boolean onSingleTapUp(MotionEvent e) {
+//            updateHandler.postDelayed(rl_mcontrolerhide,2000);
 //
-//            tvrewind_forward.setVisibility(View.VISIBLE);
-//
-//            if ( e2.getY() - e1.getY() > 50 ){
-//
-//                a = (int) (e2.getY() - e1.getY())*15/2000;
-//                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)- a, 0);
-//
-//                tvrewind_forward.setText(String.valueOf(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)));
-//
-//            }
-//            if ( e1.getY() - e2.getY() > 50  ){
-//
-//                a = (int) (e1.getY() - e2.getY())*15/2000;
-//                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)+ a, 0);
-////                videoView.seekTo(videoView.getCurrentPosition()-a);
-//              tvrewind_forward.setText(String.valueOf(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)));
-//
-//
-//            }
-//
-//
-//            rl_mcontroler.removeCallbacks(rl_mcontrolerhide);
-//
-//            rl_mcontroler.postDelayed(rl_mcontrolerhide,2000);
-//
-//
-//
-//            return super.onFling(e1, e2, velocityX, velocityY);
+//            return super.onSingleTapUp(e);
 //        }
+//
+//        @Override
+//        public boolean onDown(MotionEvent e) {
+//            rl_mcontroler.setVisibility(View.VISIBLE);
+//            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,audioManager.getStreamVolume(AudioManager.STREAM_MUSIC), AudioManager.FLAG_PLAY_SOUND);
+//            return super.onDown(e);
+//        }
+//
+//
+//
+//    }
 
-        @Override
-        public boolean onSingleTapUp(MotionEvent e) {
-            updateHandler.postDelayed(rl_mcontrolerhide,2000);
-
-            return super.onSingleTapUp(e);
-        }
-
-        @Override
-        public boolean onDown(MotionEvent e) {
-            rl_mcontroler.setVisibility(View.VISIBLE);
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,audioManager.getStreamVolume(AudioManager.STREAM_MUSIC), AudioManager.FLAG_PLAY_SOUND);
-            return super.onDown(e);
-        }
-
-
-
-    }
-
-    Runnable rl_mcontrolerhide = new Runnable() {
-        @Override
-        public void run() {
-            rl_mcontroler.setVisibility(View.GONE);
-           tvrewind_forward.setText("");
-        }
-    };
+//    Runnable rl_mcontrolerhide = new Runnable() {
+//        @Override
+//        public void run() {
+//            rl_mcontroler.setVisibility(View.GONE);
+//           tvrewind_forward.setText("");
+//        }
+//    };
     Runnable sbvolumehide = new Runnable() {
         @Override
         public void run() {

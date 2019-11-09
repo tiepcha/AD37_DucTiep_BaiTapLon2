@@ -9,7 +9,7 @@
     android:clipToPadding="false"
     app:edPosition="1"
     app:edMenuSize="260dp"
-    app:edMenuBackground="#dddddd">
+    app:edMenuBackground="@android:color/black">
 
     <!--content-->
     <LinearLayout
@@ -27,10 +27,11 @@
             app:tabSelectedTextColor="@android:color/holo_purple"
             app:tabIndicatorColor="@android:color/holo_purple"
             app:tabUnboundedRipple="true"/>
+
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
@@ -38,12 +39,59 @@
     <com.mxn.soul.flowingdrawer_core.FlowingMenuLayout
         android:id="@+id/menulayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
-        <FrameLayout
-            android:id="@+id/id_container_menu"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layoutAnimation="@anim/layout_animation_left_right"
+            >
+
+            <ImageView
+                android:id="@+id/img_empty"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="@drawable/wood"/>
+
+            <TextView
+                android:id="@+id/tv_hi_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:text="Hi Guest !"
+                />
+
+
+
+            <LinearLayout
+                android:id="@+id/id_container_menu"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/black60"
+                android:orientation="vertical"
+
+                >
+                <TextView
+                    android:id="@+id/tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@android:color/white"
+                    android:text="Nội Dung Yêu Thích"
+                    android:layout_marginVertical="20dp"
+
+                    />
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
 
     </com.mxn.soul.flowingdrawer_core.FlowingMenuLayout>
 

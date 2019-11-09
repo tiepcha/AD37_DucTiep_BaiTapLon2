@@ -4,37 +4,54 @@ import java.io.Serializable;
 import java.net.URL;
 
 public class VideoItem implements Serializable {
-    String id;
+    int id;
     String title;
     String avatar;
     String file_mp4;
     String file_mp4_size;
-    String date_created;
     String date_modified;
+    String date_created;
     String date_published;
     String youtube_url;
     String status;
-    boolean like;
+    int like;
+    String recent ;
+    int rate ;
 
 
 
+    public int getRate() {
+        return rate;
+    }
+
+    public void setRate(int rate) {
+        this.rate = rate;
+    }
+
+    public String getRecent() {
+        return recent;
+    }
+
+    public void setRecent(String recent) {
+        this.recent = recent;
+    }
 
     public VideoItem() {
     }
 
-    public boolean isLike() {
+    public int isLike() {
         return like;
     }
 
-    public void setLike(boolean openstt) {
+    public void setLike(int openstt) {
         this.like = openstt;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
