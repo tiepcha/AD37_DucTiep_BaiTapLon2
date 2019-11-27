@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="black60">#4D2B2B2B</color>
-    <color name="orange_light">#ffffbb33</color>
-    <color name="black90">#2B2B2B</color>
-    <color name="purple">#3C3E3F</color>
-    <color name="trans">#2B2B2B</color>
+    <color name="black60">#99000000</color>
+    <color name="orange_light">#FFAB00</color>
+    <color name="black90">#E6000000</color>
+    <color name="purple">#984EFF</color>
+    <color name="trans">#002B2B2B</color>
+    <color name="white">#FFFFFF</color>
+    <color name="brown">#2E1818</color>
+    <color name="white30">#99FFFFFF</color>
+    <color name="weather">#811A1A</color>
 
     <color name="black_overlay">#66000000</color>
+    <color name="black">#000000</color>
+    <color name="black30">#4D000000</color>
+    <color name="black80">#CC000000</color>
+    <color name="ctgr_item_background">#1C025F</color>
+    <color name="background">#9E5203</color>
+    <color name="loadding_color">#4D929292</color>
+
+
+
 
 
 </resources>

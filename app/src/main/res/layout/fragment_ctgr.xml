@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout >
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        tools:context=".CTGR_Activity"
+        android:tag="qqq">
+
+
+        <VideoView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/vv_ctgr"
+            android:visibility="gone"
+            />
+        <include layout="@layout/mediacontrol"
+            android:layout_height="70dp"
+            android:layout_width="match_parent"
+            android:layout_alignBottom="@id/vv_ctgr"
+            />
+<!--        <include layout="@layout/mediacontrol"-->
+
+<!--            />-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:id="@+id/divider"
+
+            android:layout_below="@id/vv_ctgr"
+            android:background="@color/orange_light"
+            />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rcv_one_ctgr"
+
+            android:layout_below="@id/divider"
+            android:layout_above="@id/divider2"
+
+            android:background="@color/black" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:id="@+id/divider2"
+
+            android:layout_above="@id/ctgr_name"
+            android:background="@color/orange_light"
+            />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ctgr_name"
+
+            android:text=""
+            android:textSize="30dp"
+            android:textColor="@color/orange_light"
+            android:textStyle="bold"
+
+            android:gravity="center"
+            android:layout_alignParentBottom="true"/>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:id="@+id/load"
+            android:layout_above="@id/ctgr_name"
+            >
+            <include layout="@layout/loadingitem" />
+            <include layout="@layout/loadingitem" />
+            <include layout="@layout/loadingitem" />
+            <include layout="@layout/loadingitem" />
+            <include layout="@layout/loadingitem" />
+            <include layout="@layout/loadingitem" />
+            <include layout="@layout/loadingitem" />
+            <include layout="@layout/loadingitem" />
+            <include layout="@layout/loadingitem" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>

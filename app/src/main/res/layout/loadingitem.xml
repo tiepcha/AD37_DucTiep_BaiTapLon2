@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="5dp"
+    android:background="@color/black_overlay"
+    android:id="@+id/loading_layout">
+
+    <com.elyeproj.loaderviewlibrary.LoaderImageView
+        android:layout_width="150dp"
+        android:layout_height="95dp"
+        android:id="@+id/loading_item"
+        android:padding="0.5dp"
+        app:custom_color="@color/loadding_color"
+
+
+        />
+
+    <com.elyeproj.loaderviewlibrary.LoaderTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_ctgr_nameitem"
+
+        android:textColor="@color/white30"
+        android:textSize="15dp"
+        android:gravity="start"
+
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/loading_item"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="10dp"
+        app:custom_color="@color/loadding_color"
+
+        />
+
+    <com.elyeproj.loaderviewlibrary.LoaderTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_ctgr_expand"
+
+        android:text="@string/expand"
+        android:textColor="@color/white30"
+        android:textStyle="bold"
+        android:textSize="12dp"
+
+
+        android:layout_marginHorizontal="10dp"
+        android:layout_alignBottom="@id/loading_item"
+        android:layout_alignParentEnd="true"
+        app:custom_color="@color/loadding_color"
+
+        />
+    <com.elyeproj.loaderviewlibrary.LoaderTextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+
+        android:layout_below="@id/loading_item"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="10dp"
+
+        android:background="@color/orange_light"
+        app:custom_color="@color/loadding_color"
+
+        />
+
+
+</RelativeLayout>

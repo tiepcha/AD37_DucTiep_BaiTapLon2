@@ -5,14 +5,21 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.VideoItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class Favorites_Video extends SQLiteOpenHelper {
+    Context context;
+
 
 
     public Favorites_Video(@Nullable Context context) {
@@ -24,9 +31,12 @@ public class Favorites_Video extends SQLiteOpenHelper {
     public static final String RECENT_TIME = "recent_time";
     public static final String ISLIKE = "islike";
     public static final String STAR = "star";
+    public static final String TITLE = "title";
+    public static final String AVATAR = "avatar";
+    public static final String FILE_MP4 = "file_mp4";
 
 
-    private  String CREATE_TABLE = "CREATE TABLE favorites (id integer , recent_time TEXT, islike integer , star integer )";
+    private  String CREATE_TABLE = "CREATE TABLE favorites (id integer , recent_time TEXT, islike integer , star integer , title TEXT , avatar TEXT , file_mp4 TEXT )";
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
@@ -57,6 +67,9 @@ public class Favorites_Video extends SQLiteOpenHelper {
         values.put(RECENT_TIME,videoItem.getRecent());
         values.put(ISLIKE,videoItem.isLike());
         values.put(STAR,videoItem.getRate());
+        values.put(TITLE,videoItem.getTitle());
+        values.put(AVATAR,videoItem.getAvatar());
+        values.put(FILE_MP4,videoItem.getFile_mp4());
 
 
         if(!cursor.moveToFirst()){b = "chưa có gì";}
@@ -136,23 +149,45 @@ public class Favorites_Video extends SQLiteOpenHelper {
 
         sqLiteDatabase.close();
 
-
-//        switch (b) {
-//
-//            case "chưa có gì":
-//                return b;
-//            break;
-//
-//            case "có trong db":
-//                return b;
-//            break;
-//
-//            case "không có trong db":
-//                return b;
-//            break;
-//
-//        }
         return videoItem;
+
+    }
+
+    public void checkList(List<VideoItem> listRecent ,List<VideoItem> listFavorite ){
+
+        listFavorite.clear();
+        listRecent.clear();
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        String select_query = "SELECT * FROM " + TABLE_NAME;
+        Cursor cursor = sqLiteDatabase.rawQuery(select_query, null);
+
+        if (cursor.moveToFirst()){
+            do {
+                    VideoItem videoItem = new VideoItem();
+                    videoItem.setId(cursor.getInt(0));
+
+                    videoItem.setTitle(cursor.getString(4));
+                    videoItem.setAvatar(cursor.getString(5));
+                    videoItem.setFile_mp4(cursor.getString(6));
+                    videoItem.setRecent(cursor.getString(1));
+                    videoItem.setLike(cursor.getInt(2));
+
+                    if (!videoItem.getRecent().equalsIgnoreCase("null")) {
+                        listRecent.add(videoItem);
+
+                    }
+                    if ((videoItem.isLike()==1)){
+                        listFavorite.add(videoItem);
+                    }
+
+            }while (cursor.moveToNext());
+
+
+
+            }
+
+
+        sqLiteDatabase.close();
 
     }
 

@@ -7,4 +7,66 @@
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="higuest">Hi Guest !</string>
+    <string name="signup">Sign Up</string>
+    <string name="signin">Sign In/</string>
+    <string name="username">User Name</string>
+    <string name="password">Password</string>
+    <string name="btn_signin">SIGN IN</string>
+    <string name="btn_signup">SIGN UP</string>
+    <string name="remember">Remember</string>
+    <string name="password2">Pass Again</string>
+    <string name="agree">I agree to terms..</string>
+    <string name="Favorite_Videos">Favorite Videos</string>
+    <string name="RecentVideos">Recent Videos</string>
+    <string name="Settings">Settings</string>
+    <string name="Aboutthisapp">About this app</string>
+    <string name="Comment">Comment</string>
+    <string name="UploadTime">Upload Time  : </string>
+    <string name="Duration">Duration : </string>
+    <string name="MUTE">MUTE</string>
+    <string name="language">Language :</string>
+    <string name="language2">English</string>
+    <string name="leaveacomment">leave a comment..</string>
+    <string name="novideos">Empty</string>
+    <string name="Temperature">Temperature :</string>
+    <string name="Temperaturemax">Temperature Max:</string>
+    <string name="Temperaturemin">Temperature Min:</string>
+    <string name="weather">Now:</string>
+    <string name="rain">Rain</string>
+    <string name="clear">Clear</string>
+    <string name="cloud">Clouds</string>
+    <string name="thunder">Thunderstorm</string>
+    <string name="drizzle">Drizzle</string>
+    <string name="description">Description:            </string>
+    <string name="anonymous">Anonymous</string>
+    <string name="receive">"Receive notification "</string>
+    <string name="collapse">Collapse..</string>
+    <string name="expand">More..</string>
+    <string name="out">Do you want to leave?</string>
+    <string name="yes">Yes, I want.</string>
+    <string name="no">No.</string>
+    <string name="awesome">Awesome!</string>
+    <string name="great">Great!!!</string>
+    <string name="good">Good video!</string>
+    <string name="bad">Bad!</string>
+    <string name="idontlikeit">I don\'t like it  !</string>
+    <string name="normal">Normal</string>
+    <string name="notbad">Not Bad!</string>
+    <string name="wait">Wait a sec...</string>
+    <string name="about">LipidX2 version 1.0.0 by tiepcha\n
+--------------------------------\n
+This app is made for entertainment.\n
+For more information , please contact\n
+tiepcha.\n\n
+
+Email: momo@gmail.com ( mỡ mỡ )\n\n
+
+Phone: 0122 522 xxxx\n\n
+
+Facebook: https://www.facebook.com/tiepcha\n\n
+
+=== Thanks for using this app ===</string>
+
+
 </resources>

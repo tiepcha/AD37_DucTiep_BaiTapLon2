@@ -13,8 +13,20 @@
     <VideoView android:id="@+id/vv"
 
         android:layout_centerInParent="true"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_title"
+
+        android:textColor="@color/orange_light"
+        android:textSize="25dp"
+
+        android:layout_margin="20dp"
+        />
+
     <SeekBar
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -102,7 +114,6 @@
         android:layout_marginBottom="30dp"
         android:background="@drawable/mcontrolerbackground"
         android:paddingHorizontal="10dp">
-        <!--        android:visibility="gone"-->
         >
 
         <ImageView

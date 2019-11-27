@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="Aboutthisapp">Thông Tin Ứng Dụng</string>
+    <string name="Comment">Bình Luận</string>
+    <string name="Duration">"Độ Dài\u0020 : \u0020 "</string>
+    <string name="Favorite_Videos">Video Yêu Thích</string>
+    <string name="MUTE">Im Lặng</string>
+    <string name="RecentVideos" translatable="false">Video Gần Đây</string>
+    <string name="Settings">Cài Đặt</string>
+    <string name="UploadTime" translatable="false">Ngày Đăng\u0020:\u0020</string>
+    <string name="agree">Đồng ý với điều khoản..</string>
+    <string name="btn_signin">Đăng Nhập</string>
+    <string name="btn_signup">Đăng Kí</string>
+    <string name="higuest">Xin Chào!</string>
+    <string name="password">Mật khẩu</string>
+    <string name="password2">"Xác Nhận MK "</string>
+    <string name="remember">Ghi Nhớ</string>
+    <string name="signin">Đăng nhập/</string>
+    <string name="signup">Đăng kí</string>
+    <string name="username">Tên Người Dùng</string>
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dummy_content">DUMMY\\nCONTENT</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="language">Ngôn ngữ :</string>
+    <string name="language2">Tiếng Việt</string>
+    <string name="leaveacomment">viết bình luận ..</string>
+    <string name="novideos">Danh Sách Trống</string>
+    <string name="Temperature">Nhiệt độ:</string>
+    <string name="Temperaturemax">Nhiệt độ cao nhất:</string>
+    <string name="Temperaturemin">Nhiệt độ thấp nhất:</string>
+    <string name="weather">Thời tiết hiện tại:</string>
+    <string name="thunder">Có bão..</string>
+    <string name="rain">Có mưa..</string>
+    <string name="drizzle">Mưa phùn..</string>
+    <string name="cloud">Nhiều mây..</string>
+    <string name="clear">Trời nắng..</string>
+    <string name="description">Nội Dung :</string>
+    <string name="anonymous">anonymous</string>
+    <string name="receive">Nhận thông báo</string>
+    <string name="collapse">Thu gọn..</string>
+    <string name="expand">Mở rộng..</string>
+    <string name="out">Bạn có muốn thoát ứng dụng?</string>
+    <string name="no">Không.</string>
+    <string name="yes">Có.</string>
+    <string name="awesome">Tuyệt vời!</string>
+    <string name="great">Rất hay !!!</string>
+    <string name="good">Khá hay!</string>
+    <string name="bad">Chán!</string>
+    <string name="idontlikeit">Tôi không thích nó !</string>
+    <string name="normal">Bình thường</string>
+    <string name="notbad">Bình thường</string>
+    <string name="about">LipidX2 version 1.0.0 bởi tiepcha\n
+--------------------------------\n
+Đây là ứng dụng giải trí.\n
+Để thêm thông tin , xin liên hệ tiep cha.\n\n
+
+Email: momo@gmail.com ( mỡ mỡ )\n\n
+
+Điện thoại: 0122 522 xxxx\n\n
+
+Facebook: https://www.facebook.com/tiepcha\n\n
+
+=== Cảm ơn vì đã sử dụng ===</string>
+    <string name="wait">Chờ chút...</string>
+</resources>

@@ -1,25 +1,20 @@
 package com.example.myapplication.Fragment;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.media.MediaPlayer;
 import android.os.Build;
-import android.os.Handler;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.MediaController;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -28,8 +23,8 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.myapplication.AdapterComment;
-import com.example.myapplication.IonClickItem;
-import com.example.myapplication.Playing;
+import com.example.myapplication.Interface.IonClickItem;
+import com.example.myapplication.R;
 import com.example.myapplication.VideoItem;
 import com.example.myapplication.data.Favorites_Video;
 import com.ramotion.foldingcell.FoldingCell;
@@ -40,7 +35,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -54,38 +48,17 @@ import static com.example.myapplication.R.drawable.*;
 
 
 public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewholder> {
-    @Override
-    public void onViewAttachedToWindow(@NonNull Viewholder holder) {
-        super.onViewAttachedToWindow(holder);
-    }
-
-    @Override
-    public void onViewDetachedFromWindow(@NonNull Viewholder holder) {
-        super.onViewDetachedFromWindow(holder);
-//        holder.fc.fold(true);
-    }
-
-    @Override
-    public void onViewRecycled(@NonNull Viewholder holder) {
-        super.onViewRecycled(holder);
-
-    }
 
     List<VideoItem> list = new ArrayList<>();
     IonClickItem ionClickItem;
     Context context;
-
     Favorites_Video favorites_video;
-
-    VideoView videoView ;
-    TextView tvtimecr;
-    SeekBar pb;
     int d;
-    private Handler updateHandler = new Handler();
-    MediaController mediaController;
-    String timecr;
-    Boolean timerun = true;
 
+    int position_playing = -1;
+
+    List<VideoHotAdapter.Viewholder> viewholderList = new ArrayList<>() ;
+    List<String> viewholderTitleList = new ArrayList<>() ;
 
 
     public void setIonClickItem(IonClickItem ionClickItem) {
@@ -97,6 +70,8 @@ public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewho
         this.context = context;
     }
 
+
+
     @NonNull
     @Override
     public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -105,6 +80,9 @@ public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewho
 
         Viewholder viewholder = new Viewholder(view);
 
+           viewholderList.add(viewholder);
+
+
         return  viewholder;
     }
 
@@ -112,47 +90,31 @@ public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewho
     public void onBindViewHolder(@NonNull final Viewholder holder, final int position) {
         final VideoItem videoItem;
         videoItem = list.get(position);
+
+
         favorites_video = new Favorites_Video(context);
 
         favorites_video.check(videoItem);
+
 
         holder.ratingBar.setRating(videoItem.getRate());
 
         if (!videoItem.getRecent().equalsIgnoreCase("null")){
             holder.imgrecent.setVisibility(View.VISIBLE);
-            holder.tvrecent.setText(videoItem.getRecent());
+            holder.tvrecent.setText(videoItem.getRecent()); }
 
-        }
-            if (videoItem.isLike()==1){
-                holder.imglike.setBackgroundResource(like);
-            } else {
-                holder.imglike.setBackgroundResource(unlike);
-            }
+        if (videoItem.isLike()==1){ holder.imglike.setBackgroundResource(like); }
+        else { holder.imglike.setBackgroundResource(unlike); }
 
-
-
-
-
-//
-//        if (videoItem.getId()=="0"){
-//            holder.fc.unfold(true);
-//        }
-
-//        if(holder.fc.isUnfolded()){
-//            holder.fc.fold(false);
-//        }
         Picasso.get().load(videoItem.getAvatar()).resize(500,320).into(holder.imgava);
         holder.tvnameitem.setText(videoItem.getTitle());
+//        Toast.makeText(context, videoItem.getFile_mp4(), Toast.LENGTH_SHORT).show();
         holder.videoView.setVideoPath(videoItem.getFile_mp4());
-//        MediaController mediaController = new MediaController(holder.videoView.getContext());
-//                    mediaController.setMediaPlayer(holder.videoView);
-//                    holder.videoView.setMediaController(mediaController);
 
 
         holder.tvtimepublic_unfold.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
             }
         });
         holder.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -161,94 +123,73 @@ public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewho
             public void onPrepared(MediaPlayer mp) {
                 // TODO Auto-generated method stub
                int d = holder.videoView.getDuration();
-
-
-
                 holder.pb.setMax(d);
                 holder.tvtime_total.setText(String.format("%02d" , (d/1000)/60)+":"+ String.format("%02d" , (d/1000)%60)) ;
             }
         });
 
-
-
         holder.videoView.start();
-
-
-        holder.tvtimepublic.setText("Upload Time  : "+videoItem.getDate_published());
+        holder.tvtimepublic.setText(context.getResources().getString(R.string.UploadTime) +videoItem.getDate_published());
         holder.tvnameunfold.setText(videoItem.getTitle());
-        holder.tvtimepublic_unfold.setText("Upload Time  : "+videoItem.getDate_published());
+        holder.tvtimepublic_unfold.setText(context.getResources().getString(R.string.UploadTime) +videoItem.getDate_published());
 
         holder.tvname.setText(videoItem.getTitle());
+        holder.fc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ionClickItem.onClickAva();
+            }
+        });
 
 
         holder.imgava.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
             public void onClick(View v) {
-//                for (VideoItem vi :list){
-//                    vi.setId("1");
-//                }
-//                notifyDataSetChanged();
+
                 DateFormat df = new SimpleDateFormat("d/M yyyy, HH:mm");
                 String date = df.format(Calendar.getInstance().getTime());
-                holder.tvrecent.setText(date);
+                videoItem.setRecent(date);
+                favorites_video.addFavoriteVideo(videoItem);
 
+                if (position_playing == -1){
+                    position_playing = position;
+                } else {
+                    ionClickItem.onPosition( VideoHotAdapter.this,position_playing,position);
+                    position_playing = position;
+                }
+
+                holder.tvrecent.setText(date);
                 holder.imgrecent.setVisibility(View.VISIBLE);
                 holder.tvrecent_unfold.setText(date);
-                videoItem.setRecent(date);
 
-                favorites_video.addFavoriteVideo(videoItem);
-                ionClickItem.onClickAva(position);
                 holder.space.setVisibility(View.GONE);
                 holder.fc.unfold(false);
-//                videoItem.setId("0");
+
                 holder.videoView.start();
                 holder.edt_cmt.setClickable(true);
-
-
-//
-//                MediaController mediaController = new MediaController(holder.videoView.getContext());
-//                mediaController.setAnchorView(holder.videoView);
-//                holder.videoView.setMediaController(mediaController);
-
-
-//                holder.videoView.setZOrderOnTop(true);
-
-//                videoItem.setId("1");
-
-
-
-
-
             }
         });
+        holder.imglike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (videoItem.isLike()==0) {
+                    videoItem.setLike(1);
+                    holder.imglike.setBackgroundResource(like);
+                    favorites_video.addFavoriteVideo(videoItem);
+                } else {videoItem.setLike(0);holder.imglike.setBackgroundResource(unlike);
+                    favorites_video.addFavoriteVideo(videoItem);}
+            }
 
-//        holder.pb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-//            @Override
-//            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-//
-//            }
-//
-//            @Override
-//            public void onStartTrackingTouch(SeekBar seekBar) {
-//
-//            }
-//
-//            @Override
-//            public void onStopTrackingTouch(SeekBar seekBar) {
-//                int a = holder.pb.getProgress();
-//               holder.videoView.seekTo(a);
-//
-//
-//            }
-//        });
+        });
+
+
 
         holder.imgfullscreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                Toast.makeText(view.getContext(), videoItem.getFile_mp4(), Toast.LENGTH_SHORT).show();
                 ionClickItem.onClickName(videoItem.getFile_mp4(),holder.videoView.getCurrentPosition(),position,view);
-
             }
         });
 
@@ -259,17 +200,20 @@ public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewho
                 int videoDuration = holder.videoView.getDuration();
 
                  String duration=convertMillieToHMmSs(videoDuration);
-                holder.tvinfo.setText("Duration : "+ duration);
+                holder.tvinfo.setText(context.getResources().getString(string.Duration) + duration);
 
                 d = holder.videoView.getDuration();
-
-
-//                holder.pb.setMax(d);
-//                updateHandler.postDelayed(updateVideoTime, 1000);
-//                holder.tvtime_total.setText(String.format("%02d" , (d/1000)/60)+":"+ String.format("%02d" , (d/1000)%60)) ;
-
             }
         });
+
+
+//        holder.videoView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean b) {
+//                holder.videoView.pause();
+//                holder.fc.fold(true);
+//            }
+//        });
 
 
         holder.rcv_comment.setOnTouchListener(new View.OnTouchListener() {
@@ -282,6 +226,7 @@ public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewho
                 return false;
             }
         });
+
         holder.rcv_comment_fold.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
@@ -304,31 +249,12 @@ public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewho
                 }else {
                     holder.videoView.start();
                     holder.imgpause.setVisibility(View.GONE);
-
                 }
-
             }
         });
 
 
-        holder.imglike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-
-
-                if (videoItem.isLike()==0) {
-                    videoItem.setLike(1);
-                    holder.imglike.setBackgroundResource(like);
-
-                    favorites_video.addFavoriteVideo(videoItem);
-
-                } else {videoItem.setLike(0);holder.imglike.setBackgroundResource(unlike);
-                    favorites_video.addFavoriteVideo(videoItem);}
-
-            }
-
-        });
 
 
         holder.tvcmt_fold.setOnClickListener(new View.OnClickListener() {
@@ -339,7 +265,6 @@ public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewho
                     holder.tvname.setVisibility(View.GONE);
                     holder.ratingBar.setVisibility(View.GONE);
                     holder.imglike.setVisibility(View.GONE);
-//                    notifyDataSetChanged();
                 }else if (holder.rcv_comment_fold.getVisibility()==View.VISIBLE){
                     holder.rcv_comment_fold.setVisibility(View.GONE);
                     holder.tvname.setVisibility(View.VISIBLE);
@@ -386,16 +311,6 @@ public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewho
         });
 
 
-//        holder.imgcollapse.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View view, MotionEvent motionEvent) {
-//                view.getParent().requestDisallowInterceptTouchEvent(true);
-//                gestureDetector.onTouchEvent(motionEvent);
-//                return true;
-//            }
-//        });
-
-
         holder.imgrecent.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -415,60 +330,62 @@ public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewho
                 favorites_video.addFavoriteVideo(videoItem);
             }
         });
-
-
-
-
-
-
     }
+
 
     @Override
     public int getItemCount() {
         return list.size();
     }
 
+
+
+
+
+
+
     public  class  Viewholder extends RecyclerView.ViewHolder{
         FoldingCell fc ;
-        TextView tvnameunfold;
+
         RecyclerView rcv;
+        RecyclerView rcv_comment, rcv_comment_fold;
+
+
         ImageView imgava;
         ImageView imgcollapse;
         ImageView imgpause;
-         VideoView videoView;
+        ImageView imgrecent_unfold;
+        ImageView imgrecent,imgcmt;
+        ImageView imglike;
+        ImageView imgfullscreen;
+
+        VideoView videoView;
+
         TextView tvnameitem;
         TextView tvinfo;
         TextView tvtime_total;
         TextView space;
-
+        TextView tvnameunfold;
         TextView tvtimepublic;
         TextView tvtimepublic_unfold;
-        ImageView imgrecent_unfold;
-        ImageView imgrecent,imgcmt;
         TextView tvcmt_fold;
+        TextView tvrecent;
+        TextView tvrecent_unfold;
+        TextView tvname;
 
         EditText edt_cmt;
 
         RelativeLayout ll ;
+        RelativeLayout cell_title_view,cell_content_view,full;
 
-        TextView tvrecent;
-        TextView tvrecent_unfold;
+        RatingBar ratingBar;
+
+
+        SeekBar pb;
+
         GestureDetector gestureDetector;
 
-        TextView tvname;
-        RatingBar ratingBar;
-        ImageView imglike;
-        ImageView imgfullscreen;
-        TextView tvtimecr;
-        SeekBar pb;
-        int d;
-        private Handler updateHandler = new Handler();
-        MediaController mediaController;
-        String timecr;
-        Boolean timerun = true;
 
-        RelativeLayout cell_title_view,cell_content_view,full;
-        RecyclerView rcv_comment, rcv_comment_fold;
         public Viewholder(@NonNull View itemView) {
             super(itemView);
 
@@ -495,8 +412,8 @@ public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewho
             listcomment.add("cực kì thuyết phục");
             listcomment.add("Kb mn thấy sao chứ mh xem phát tức");
             listcomment.add("Phim mẫu thuẫn vãi ...! Ko hay tý nào");
-            listcomment.add("Is the movie all right? ");
-            listcomment.add("Rất hay vì tao đã kéo xuống xem cmt không lại phí hơn 1 giờ ");
+            listcomment.add("Is the movie all right?");
+            listcomment.add("Rất hay vì tao đã kéo xuống xem cmt không lại phí hơn 1 giờ");
             listcomment.add("Tại sao những bộ phim chiếu rạp này lại có engsub vậy, ad biết không");
             listcomment.add("Thật sự là mong chờ phim lâu rồi cứ tưỡng là sẽ không được coi");
             listcomment.add("cực kì thuyết phục");
@@ -505,33 +422,23 @@ public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewho
             listcomment.add("6/8/2019\n" +
                     "Mình đã xem rất hay và cảm động");
             listcomment.add("không biết có ai giống mình k, trước khi xem phải đọc bình luận");
-            listcomment.add("Phim hay lắm mọi người ơi!!!\n" +
-                    "\n");
+            listcomment.add("Phim hay lắm mọi người ơi!!!");
             listcomment.add("Trước khi xem ,dạo qua cmt ,thấy khen nhiều .ok.xem.");
             listcomment.add("Phim hay và đẹp quá , tuyệt vời lắm");
             listcomment.add("Phim hay quá. Nữ chính đẹp lắm. còn nam chính thì hông được như mình thường tưởng tượng. Lâu lâu coi thể loại này cũng thấy cuộc đời tươi hơn tí ^^");
-            listcomment.add("OK phong cảnh và phục trang làm tui thích thể loại phim này :D\n" +
-                    "\n");
+            listcomment.add("OK phong cảnh và phục trang làm tui thích thể loại phim này :D");
             listcomment.add("Phim hay \n" +
                     "Và nghiệm ra rằng : đừng nương tay với kẻ vô lại");
-            listcomment.add("Bộ phim xứng đáng với cái tên điện ảnh\n" +
-                    "\n");
+            listcomment.add("Bộ phim xứng đáng với cái tên điện ảnh");
             listcomment.add("3-8-2019 \n" +
                     "Có ai xem hông\n" +
                     "Phim hay hết sức ( ◜‿◝ )♡");
-            listcomment.add("Đằng sau 1 thằng con trai thành công là 1 ng con gái hiểu và yêu mk hết lòng do " +
-                    "\n");
-            listcomment.add("dv nữ phim này đẹp thật\n" +
-                    "\n");
-            listcomment.add("Xin tên bài hát cuối phim\n" +
-                    "\n" +
-                    "\n");
-            listcomment.add("Phim ko hay! Nói chuyện nhiều\n" +
-                    "\n" +
-                    "\n");
-            listcomment.add("Mới vào kinh này ‘ cho hỏi phim kênh này có hay Ko ae ‘ mình ở Huế\n" +
-                    "\n");
-            listcomment.add("Tam tam\n");
+            listcomment.add("Đằng sau 1 thằng con trai thành công là 1 ng con gái hiểu và yêu mk hết lòng do");
+            listcomment.add("dv nữ phim này đẹp thật");
+            listcomment.add("Xin tên bài hát cuối phim");
+            listcomment.add("Phim ko hay! Nói chuyện nhiều");
+            listcomment.add("Mới vào kinh này ‘ cho hỏi phim kênh này có hay Ko ae ‘ mình ở Huế");
+            listcomment.add("Tam tam");
             Collections.shuffle(listcomment);
             int ran = new Random().nextInt(listcomment.size());
             for (int i = ran ; i <listcomment.size()-1 ; i++){
@@ -549,7 +456,6 @@ public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewho
             rcv_comment.setAdapter(adapter);
 
             rcv_comment_fold = itemView.findViewById(id.rcv_comment_fold);
-//            rcv_comment_fold.setNestedScrollingEnabled(false);
            final AdapterComment adapter2 = new AdapterComment(listcomment);
             RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(itemView.getContext(),LinearLayoutManager.VERTICAL,false);
             rcv_comment_fold.setLayoutManager(layoutManager2);
@@ -558,7 +464,6 @@ public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewho
 
             cell_title_view = itemView.findViewById(id.cell_title_view);
             cell_content_view = itemView.findViewById(id.cell_content_view);
-            full = itemView.findViewById(id.full);
             imgfullscreen = itemView.findViewById(id.imgfullscreen);
             fc = itemView.findViewById(id.folding_cell);
             ratingBar = itemView.findViewById(id.ratingbar);
@@ -573,7 +478,7 @@ public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewho
             space = itemView.findViewById(id.space);
             imgcmt = itemView.findViewById(id.imgcmt);
             tvcmt_fold = itemView.findViewById(id.tvcmt_fold);
-            tvcmt_fold.setText("Comment ("+ listcomment.size() +")");
+            tvcmt_fold.setText(context.getResources().getString(string.Comment)  + " ("+ listcomment.size() +")");
             tvrecent_unfold = itemView.findViewById(id.tvrecent_unfold);
             tvrecent = itemView.findViewById(id.tvrecent);
             imgrecent = itemView.findViewById(id.imgrecent);
@@ -594,7 +499,7 @@ public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewho
             imgpause = itemView.findViewById(id.imgpause);
             imgcollapse = itemView.findViewById(id.imgcollapse);
             tvnameitem = itemView.findViewById(id.tvnameitem);
-            tvnameitem.setSelected(true);
+//            tvnameitem.setSelected(true);
             videoView = (VideoView)itemView.findViewById(id.vv);
             gestureDetector = new GestureDetector(context,new MyGestures(fc,videoView,imgpause) );
             imgcollapse.setOnTouchListener(new View.OnTouchListener() {
@@ -605,7 +510,7 @@ public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewho
                     return true;
                 }
             });
-            ll.setOnTouchListener(new View.OnTouchListener() {
+            tvnameunfold.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     view.getParent().requestDisallowInterceptTouchEvent(true);
@@ -620,36 +525,14 @@ public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewho
 
                         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(edt_cmt.getWindowToken(), 0);
+
                     }
                 }
             });
-//            tvnameitem.setOnTouchListener(new View.OnTouchListener() {
-//                @Override
-//                public boolean onTouch(View view, MotionEvent motionEvent) {
-//                    view.getParent().requestDisallowInterceptTouchEvent(true);
-//                    gestureDetector.onTouchEvent(motionEvent);
-//                    return true;
-//                }
-//            });
-
-//            edt_cmt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//                @Override
-//                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//                    boolean handled = false;
-//                    if (actionId == EditorInfo.IME_ACTION_GO) {
-//                        Toast.makeText(context, "ok", Toast.LENGTH_SHORT).show();
-//                        listcomment.add(edt_cmt.getText().toString());
-//                        adapter.notifyDataSetChanged();
-//                        adapter2.notifyDataSetChanged();
-//
-//
-//
-//                    }
-//                    return handled;
-//                }
-//            });
 
 
+
+                                                                                                        //BẮT SỰ KIỆN ENTER TRÊN COMMENT
             edt_cmt.setOnKeyListener(new View.OnKeyListener() {
                 public boolean onKey(View view, int keyCode, KeyEvent keyevent) {
                     //If the keyevent is a key-down event on the "enter" button
@@ -671,13 +554,14 @@ public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewho
 
         }
     }
+
+
     public static String convertMillieToHMmSs(int millie) {
         long seconds = (millie / 1000);
         long second = seconds % 60;
         long minute = (seconds / 60) % 60;
         long hour = (seconds / (60 * 60)) % 24;
 
-        String result = "";
         if (hour > 0) {
             return String.format("%02d:%02d:%02d", hour, minute, second);
         }
@@ -691,7 +575,6 @@ public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewho
         class MyGestures extends GestureDetector.SimpleOnGestureListener {
 
         FoldingCell fc ;
-        EditText editText;
         VideoView videoView;
         ImageView imgpause;
 
@@ -708,6 +591,7 @@ public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewho
                     fc.fold(false);
                     imgpause.setVisibility(View.GONE);
                     videoView.pause();
+                    position_playing = -1 ;
 
                 } else if ((e2.getY() - e1.getY()) > 50){
                     fc.unfold(false);
@@ -715,34 +599,13 @@ public class VideoHotAdapter extends RecyclerView.Adapter<VideoHotAdapter.Viewho
 
                 return super.onFling(e1, e2, velocityX, velocityY);
             }
-
-//            @Override
-//            public boolean onDoubleTap(MotionEvent e) {
-//                if(videoView.isPlaying()){
-//                    videoView.pause();
-//                  imgpause.setVisibility(View.VISIBLE);
-//
-//                }else {
-//                    videoView.start();
-//                    imgpause.setVisibility(View.GONE);
-//
-//                }
-//                return super.onDoubleTap(e);
-//            }
-//
-//
-//            @Override
-//            public boolean onSingleTapConfirmed(MotionEvent e) {
-//                fc.fold(false);
-//                imgpause.setVisibility(View.GONE);
-//                videoView.pause();
-//
-//                return super.onSingleTapConfirmed(e);
-//            }
         }
 
-
-        }
+    @Override
+    public long getItemId(int position) {
+        return list.get(position).getId();
+    }
+}
 
 
 

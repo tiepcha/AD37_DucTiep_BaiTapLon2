@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    >
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/center"
+        android:layout_centerInParent="true"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:id="@+id/img_ctgr"
+        android:layout_marginVertical="1dp"
+
+
+        android:background="@color/orange_light"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_ctgr_name"
+
+        android:text="  Korean Series  "
+        android:textColor="@color/black"
+        android:textStyle="bold"
+
+        android:paddingHorizontal="10dp"
+        android:layout_alignParentTop="@id/img_ctgr"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/vien7"
+
+        />
+
+</RelativeLayout>

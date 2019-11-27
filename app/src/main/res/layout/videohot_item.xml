@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".MainActivity"
-    android:background="@color/black60"
-    android:id="@+id/full"
-    >
+
 
     <com.ramotion.foldingcell.FoldingCell
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/folding_cell"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,75 +30,73 @@
                 android:background="@android:color/transparent"
                 android:layout_below="@id/topborder"
                 />
+
             <ImageView
                 android:layout_width="350dp"
                 android:layout_height="0.7dp"
                 android:layout_below="@id/vv"
                 android:background="@color/purple"
                 android:layout_centerHorizontal="true"/>
-            <RelativeLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/ll"
-                android:orientation="vertical"
+                android:id="@+id/tvnameunfold"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_orange_light"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="10dp"
                 android:layout_below="@id/vv"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvnameunfold"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/holo_orange_light"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginHorizontal="10dp"/>
+                />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvduration"
-                    android:layout_below="@id/tvnameunfold"
-                    android:textColor="@android:color/holo_orange_light"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvtimepublic_unfold"
-                    android:textColor="@android:color/holo_orange_light"
-                    android:textStyle="italic"
-                    android:layout_below="@id/tvduration"
-                    android:layout_marginTop="6dp"
-                    android:textSize="12dp"
-                    android:layout_marginLeft="10dp"
-                    />
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:id="@+id/imgrecent_unfold"
-                    android:background="@drawable/recent"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_below="@id/tvtimepublic_unfold"
-                    />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvduration"
+                android:layout_below="@id/tvnameunfold"
+                android:textColor="@android:color/holo_orange_light"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvtimepublic_unfold"
+                android:textColor="@android:color/holo_orange_light"
+                android:textStyle="italic"
+                android:layout_below="@id/tvduration"
+                android:layout_marginTop="6dp"
+                android:textSize="12dp"
+                android:layout_marginLeft="10dp"
+                />
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:id="@+id/imgrecent_unfold"
+                android:background="@drawable/recent"
+                android:layout_marginTop="9dp"
+                android:layout_marginLeft="10dp"
+                android:layout_below="@id/tvtimepublic_unfold"
+                />
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvrecent_unfold"
-                    android:textColor="@android:color/darker_gray"
-                    android:textStyle="italic"
-                    android:text="20-8-2018"
-                    android:textSize="12dp"
-                    android:layout_toRightOf="@id/imgrecent_unfold"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_below="@id/tvtimepublic_unfold"
-                    />
-            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvrecent_unfold"
+                android:textColor="@android:color/darker_gray"
+                android:textStyle="italic"
+                android:text="20-8-2018"
+                android:textSize="12dp"
+                android:layout_toRightOf="@id/imgrecent_unfold"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_below="@id/tvtimepublic_unfold"
+                />
+
+
+
+
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -167,7 +158,7 @@
                 android:layout_height="30dp"
                 android:id="@+id/edt_cmt"
                 android:textColor="@android:color/darker_gray"
-                android:hint="leave a comment.."
+                android:hint="@string/leaveacomment"
                 android:textColorHint="@android:color/darker_gray"
                 android:textSize="12dp"
 
@@ -221,11 +212,6 @@
                 android:background="@drawable/vien"
                 android:text="Single-line text view that scrolls automatically if the text is too long to fit in the widget"
                 android:singleLine="true"
-                android:ellipsize="marquee"
-                android:marqueeRepeatLimit ="marquee_forever"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:scrollHorizontally="true"
                 android:layout_centerVertical="true"
                 android:paddingLeft="7dp"
                 android:textSize="17dp"
@@ -234,22 +220,22 @@
 
 
             <TextView
+                android:id="@+id/tvtimepublic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvtimepublic"
-                android:textColor="@android:color/darker_gray"
-                android:textStyle="italic"
-                android:layout_below="@id/rlava"
-                android:text="qqq"
+                android:layout_below="@id/imgava"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp"
+                android:text="qqq"
+                android:textColor="@android:color/darker_gray"
                 android:textSize="12dp"
-                />
+                android:textStyle="italic" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv_comment_fold"
                 android:layout_width="match_parent"
                 android:layout_height="322px"
                 android:layout_below="@id/tvnameitem"
-                android:layout_toRightOf="@id/rlava"
+                android:layout_toRightOf="@id/imgava"
                 android:visibility="gone"
                 android:background="@drawable/vien2"
                 android:layout_marginLeft="5dp"
@@ -265,7 +251,7 @@
                 android:textColor="@android:color/darker_gray"
                 android:textStyle="italic"
                 android:layout_below="@id/tvnameitem"
-                android:layout_toRightOf="@id/rlava"
+                android:layout_toRightOf="@id/imgava"
                 android:text="qqq"
                 android:layout_margin="10dp"
                 android:textSize="15dp"
@@ -320,8 +306,8 @@
                 android:layout_marginLeft="30dp"
                 android:isIndicator="false"
                 android:stepSize="1"
-                android:layout_alignBottom="@+id/rlava"
-                android:layout_toRightOf="@id/rlava"
+                android:layout_alignBottom="@+id/imgava"
+                android:layout_toRightOf="@id/imgava"
                 style="?android:attr/ratingBarStyleSmall"
                 android:clickable="true"
                 android:layout_marginBottom="5dp"
@@ -330,7 +316,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvcmt_fold"
-                android:text="Comment"
+                android:text="@string/Comment"
                 android:textSize="15dp"
                 android:textStyle="italic"
                 android:layout_alignParentEnd="true"
@@ -365,38 +351,15 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="10dp"/>
 
-            <RelativeLayout
-                android:id="@+id/rlava"
+            <ImageView
+                android:id="@+id/imgava"
                 android:layout_width="502px"
                 android:layout_height="322px"
                 android:layout_below="@id/tvnameitem"
                 android:layout_marginTop="2dp"
                 android:background="@android:color/holo_orange_light"
-
-                >
-
-                <ImageView
-                    android:id="@+id/imgava"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true" />
-
-                <TextView
-                    android:id="@+id/tvtime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_margin="5dp"
-                    android:textColor="@android:color/white" />
-
-
-
-
-
-
-
-            </RelativeLayout>
+                android:padding="1dp"
+                />
             <TextView
                 android:id="@+id/space"
                 android:layout_width="300dp"
@@ -414,5 +377,3 @@
 
         ​
     </com.ramotion.foldingcell.FoldingCell>
-
-</RelativeLayout>

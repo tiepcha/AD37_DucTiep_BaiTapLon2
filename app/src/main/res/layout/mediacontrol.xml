@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@color/black60"
+    android:padding="10dp"
+    android:id="@+id/mediacontrol">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/pause"
+
+        android:layout_marginRight="10dp"
+
+        android:background="@mipmap/play"
+        />
+    <SeekBar
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+
+        android:layout_toLeftOf="@id/fulltime"
+        android:clickable="true"
+        android:max="100"
+        android:progressTint="@color/orange_light"
+        android:thumbTint="@color/orange_light"
+        android:layout_toRightOf="@id/playtime"
+        android:progressBackgroundTint="@color/default_color"
+        />
+
+    <ImageView
+        android:id="@+id/fullsscreen"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+
+        android:layout_marginBottom="2.5dp"
+        android:layout_alignBottom="@id/pause"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/full" />
+
+    <ImageView
+        android:id="@+id/next"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+
+        android:layout_alignBottom="@id/pause"
+        android:layout_marginLeft="6dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toRightOf="@id/prev"
+        android:background="@drawable/nextx" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:id="@+id/title"
+
+        android:text="XXXXXXXXXXXX"
+        android:textSize="13dp"
+        android:textColor="@color/orange_light"
+
+        android:gravity="center"
+        android:paddingHorizontal="10dp"
+        android:layout_alignBottom="@id/next"
+        android:layout_toRightOf="@id/next"
+        android:layout_toLeftOf="@id/loop"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit ="marquee_forever"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:scrollHorizontally="true"
+
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:id="@+id/playtime"
+
+        android:text="00:00"
+        android:textSize="13dp"
+        android:textColor="@color/orange_light"
+
+        android:gravity="center"
+        android:layout_alignBottom="@id/fulltime"
+        android:layout_toRightOf="@id/pause"
+
+       />
+
+    <ImageView
+    android:layout_width="25dp"
+    android:layout_height="25dp"
+    android:id="@+id/prev"
+
+    android:layout_toRightOf="@id/pause"
+    android:background="@drawable/prevx"
+    android:layout_alignBottom="@id/pause"/>
+    <ImageView
+    android:layout_width="25dp"
+    android:layout_height="25dp"
+    android:id="@+id/loop"
+
+    android:layout_toLeftOf="@id/fullsscreen"
+    android:background="@drawable/loop"
+    android:layout_alignBottom="@id/pause"
+        android:layout_marginRight="10dp"/>
+
+    <TextView
+        android:id="@+id/fulltime"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+
+        android:layout_alignParentEnd="true"
+        android:gravity="center"
+        android:text="00:00"
+
+        android:textColor="@color/orange_light"
+        android:textSize="13dp" />
+
+
+
+
+
+
+
+
+</RelativeLayout>

@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp"
+    android:paddingHorizontal="5dp"
+    android:background="@color/black_overlay"
+
+    >
+
+    <RelativeLayout
+        android:id="@+id/rl_ctgr_more_info"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+
+        android:background="@color/black"
+        android:paddingHorizontal="3dp"
+        android:paddingTop="115dp"
+
+        android:visibility="gone"
+        >
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0.5dp"-->
+<!--            android:background="@color/orange_light"-->
+<!--            />-->
+        <TextView
+            android:id="@+id/tv_ctgr_expand_date_public"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/UploadTime"
+            android:textColor="@color/white30"
+            android:textSize="12dp"
+
+            android:layout_marginTop="10dp"
+            />
+        <CheckBox
+            android:id="@+id/cb_ctgr_expand_guest"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+
+
+
+
+            android:background="@android:color/black"
+            android:buttonTint="@android:color/white"
+
+            android:text="@string/anonymous"
+            android:textColor="@color/white30"
+            android:textSize="10dp"
+
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/tv_ctgr_expand_date_public"
+            />
+        <CheckBox
+            android:id="@+id/cb_ctgr_expand_receive_email"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+
+            android:background="@android:color/black"
+            android:buttonTint="@android:color/white"
+
+            android:text="@string/receive"
+            android:textColor="@color/white30"
+            android:textSize="10dp"
+
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/cb_ctgr_expand_guest"
+            />
+
+
+        <TextView
+            android:id="@+id/tv_ctgr_expand_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/Comment"
+            android:textColor="@color/white30"
+            android:textSize="12dp"
+
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+
+             />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+
+            android:layout_below="@id/cb_ctgr_expand_receive_email"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="8dp"
+            android:layout_toLeftOf="@id/rl_ctgr_expand_comment"
+            android:background="@color/orange_light"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/awesome"
+
+            android:text="@string/awesome"
+            android:textColor="@color/white30"
+            android:textSize="11dp"
+
+            android:layout_below="@id/cb_ctgr_expand_receive_email"
+            android:layout_marginTop="20dp"
+            android:padding="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginLeft="8dp"
+
+            android:background="@drawable/vientextcomment"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/notbad"
+
+            android:text="@string/notbad"
+            android:textColor="@color/white30"
+            android:textSize="11dp"
+
+            android:layout_below="@id/cb_ctgr_expand_receive_email"
+            android:layout_toRightOf="@id/awesome"
+            android:layout_marginTop="20dp"
+            android:padding="3dp"
+            android:layout_marginRight="3dp"
+
+
+            android:background="@drawable/vientextcomment"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bad"
+
+            android:text="@string/bad"
+            android:textColor="@color/white30"
+            android:textSize="11dp"
+
+            android:layout_below="@id/awesome"
+            android:layout_marginTop="10dp"
+            android:padding="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginLeft="8dp"
+
+
+            android:background="@drawable/vientextcomment"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/idontlikeit"
+
+            android:text="@string/idontlikeit"
+            android:textColor="@color/white30"
+            android:textSize="11dp"
+
+            android:layout_below="@id/awesome"
+            android:layout_toRightOf="@id/bad"
+            android:layout_marginTop="10dp"
+            android:padding="3dp"
+            android:layout_marginRight="3dp"
+
+
+            android:background="@drawable/vientextcomment"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+
+            android:layout_below="@id/bad"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="8dp"
+            android:layout_toLeftOf="@id/rl_ctgr_expand_comment"
+            android:background="@color/orange_light"
+            />
+
+
+
+        <EditText
+            android:id="@+id/edt_ctgr_expand_comment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_below="@id/bad"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toLeftOf="@id/rl_ctgr_expand_comment_push"
+            android:layout_marginTop="20dp"
+            android:padding="5dp"
+
+            android:background="@drawable/vien9"
+            android:gravity="start"
+            android:hint="@string/leaveacomment"
+            android:textColorHint="@color/white30"
+            android:textSize="10dp"
+            android:textColor="@color/white30"
+
+            android:textStyle="italic"
+            />
+
+        <TextView
+            android:id="@+id/rl_ctgr_expand_comment_push"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+
+            android:layout_below="@id/cb_ctgr_expand_receive_email"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/rl_ctgr_expand_comment"
+            android:gravity="center"
+
+            android:text="▷"
+            android:textColor="@color/white30"
+            android:textSize="30dp"
+
+            android:visibility="gone"
+            />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rl_ctgr_expand_comment"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@id/tv_ctgr_expand_date_public"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/vien9"
+            android:paddingHorizontal="5dp"
+            android:paddingVertical="5dp" />
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="95dp"
+        android:id="@+id/img_ctgr_item"
+
+        android:background="@color/white30"
+
+        android:padding="0.5dp"
+        />
+<!--    <dyanamitechetan.vusikview.VusikView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="95dp"-->
+<!--        android:id="@+id/vusik"-->
+
+<!--        app:fallSpeed="0.05"-->
+<!--        app:fallCount="40"-->
+<!--        />-->
+
+    //or AVLoadingIndicatorView.Large or AVLoadingIndicatorView.Small
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/AVLoadingIndicatorView.Small"
+        android:visibility="visible"
+        app:indicatorName="LineScalePartyIndicator"
+        app:indicatorColor="@color/orange_light"
+
+        android:layout_alignEnd="@id/img_ctgr_item"
+
+    />
+
+    <RatingBar
+        android:id="@+id/ratingbar_ctgr_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:rating="2.5"
+        android:scaleY="1.5"
+        android:scaleX="1.5"
+        android:layout_marginLeft="30dp"
+        android:isIndicator="false"
+        android:stepSize="1"
+        android:layout_alignBottom="@+id/img_ctgr_item"
+        android:layout_toRightOf="@id/img_ctgr_item"
+        style="?android:attr/ratingBarStyleSmall"
+        android:clickable="true"
+        android:layout_marginBottom="5dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_ctgr_nameitem"
+
+        android:text="XXXXXXX"
+        android:textColor="@color/white30"
+        android:textStyle="italic"
+        android:textSize="15dp"
+        android:gravity="start"
+
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/img_ctgr_item"
+        android:layout_toLeftOf="@id/img_ctgr_like"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="10dp"
+        android:layout_above="@id/ratingbar_ctgr_item"
+        />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/img_ctgr_like"
+
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@id/tv_ctgr_nameitem"
+        android:layout_margin="3dp"
+
+        android:background="@drawable/like"
+        />
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/img_ctgr_recent"
+
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/img_ctgr_like"
+        android:layout_marginTop="5dp"
+        android:layout_margin="3dp"
+
+        android:background="@drawable/recent"
+        android:visibility="gone"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_ctgr_expand"
+
+        android:text="@string/expand"
+        android:textColor="@color/white30"
+        android:textStyle="bold"
+        android:textSize="12dp"
+        android:gravity="bottom"
+
+
+        android:layout_marginLeft="10dp"
+        android:layout_alignBottom="@id/img_ctgr_item"
+        android:layout_alignParentEnd="true"
+        android:paddingHorizontal="10dp"
+        android:paddingTop="10dp"
+        />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+
+        android:layout_alignBottom="@id/noname"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginBottom="-10dp"
+        android:background="@drawable/expandx" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:id="@+id/noname"
+
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_below="@id/img_ctgr_item"
+
+        android:layout_marginHorizontal="10dp"
+
+        />
+
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+
+        android:layout_below="@id/img_ctgr_item"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="10dp"
+
+        android:background="@color/orange_light"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:id="@+id/overlay"
+
+        android:background="@color/black80"
+        android:visibility="gone"/>
+
+
+
+
+
+
+
+
+
+</RelativeLayout>
